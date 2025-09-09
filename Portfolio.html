@@ -1,0 +1,508 @@
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saurabh Patloori - Financial Analyst Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .skill-bar {
+            background-color: #e9ecef;
+            border-radius: 0.25rem;
+            overflow: hidden;
+            height: 1.5rem;
+        }
+        .skill-bar-fill {
+            height: 100%;
+            background-color: #0d6efd;
+            text-align: right;
+            padding-right: 0.5rem;
+            color: white;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 0.75rem;
+            font-weight: 500;
+            transition: width 1.5s ease-in-out;
+        }
+        /* Gemini Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            transform: scale(0.95);
+            transition: transform 0.3s;
+        }
+        .modal-overlay.visible .modal-content {
+            transform: scale(1);
+        }
+        /* Simple spinner for loading */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: #0d6efd;
+            animation: spin 1s ease infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-gray-900">Saurabh Patloori</a>
+            <div class="hidden md:flex space-x-6">
+                <a href="#home" class="text-gray-600 hover:text-blue-600 transition duration-300">Home</a>
+                <a href="#about" class="text-gray-600 hover:text-blue-600 transition duration-300">About</a>
+                <a href="#experience" class="text-gray-600 hover:text-blue-600 transition duration-300">Experience</a>
+                <a href="#projects" class="text-gray-600 hover:text-blue-600 transition duration-300">Projects</a>
+                <a href="#skills" class="text-gray-600 hover:text-blue-600 transition duration-300">Skills</a>
+                <a href="#contact" class="text-gray-600 hover:text-blue-600 transition duration-300">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-btn" class="text-gray-600 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#home" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Home</a>
+            <a href="#about" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">About</a>
+            <a href="#experience" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Experience</a>
+            <a href="#projects" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Projects</a>
+            <a href="#skills" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Skills</a>
+            <a href="#contact" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="h-screen flex items-center justify-center bg-white">
+            <div class="text-center px-6">
+                <h1 class="text-5xl md:text-7xl font-bold text-gray-900 mb-4">Saurabh Patloori</h1>
+                <p class="text-xl md:text-2xl text-blue-600 font-medium mb-8">Financial Analyst | Data-Driven Strategist</p>
+                <p class="max-w-3xl mx-auto text-lg text-gray-600">
+                    A detail-oriented Financial Analyst with a Master's in Business Analytics. I specialize in financial modeling, forecasting, and transforming complex data into actionable business strategies to drive profitability and operational efficiency.
+                </p>
+                <a href="#projects" class="mt-8 inline-block bg-blue-600 text-white font-semibold px-8 py-3 rounded-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105">View My Work</a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12">About Me</h2>
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/3 text-center">
+                        <img src="https://placehold.co/400x400/E2E8F0/4A5568?text=SP" alt="Saurabh Patloori" class="rounded-full mx-auto shadow-lg w-64 h-64 md:w-80 md:h-80 object-cover">
+                    </div>
+                    <div class="md:w-2/3">
+                        <h3 class="text-2xl font-semibold mb-4">My Professional Philosophy</h3>
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                            I believe the intersection of finance and data analytics is where true business value is unlocked. My approach is rooted in a deep commitment to data integrity and a passion for uncovering the story behind the numbers. I strive to be more than just an analyst; I aim to be a strategic partner who provides clear, data-backed insights that empower leaders to make confident decisions.
+                        </p>
+                        <p class="text-gray-600 leading-relaxed">
+                            With a background in accounting and a Master's in Business Analytics, I bring a comprehensive perspective to financial challenges. From building sophisticated financial models to automating complex reporting workflows, my goal is always to enhance efficiency, improve accuracy, and ultimately drive sustainable growth. I am passionate about continuous learning and applying new technologies to solve complex financial problems.
+                        </p>
+                    </div>
+                </div>
+                 <!-- Gemini Feature: Market News -->
+                <div class="mt-16 text-center bg-white p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-semibold mb-4">Stay Ahead of the Curve</h3>
+                    <p class="text-gray-600 max-w-2xl mx-auto mb-6">As a financial analyst, staying current with market trends is critical. Use the power of Gemini to get a real-time summary of today's top financial news stories relevant to this field.</p>
+                    <button id="get-market-news" class="bg-blue-600 text-white font-semibold px-8 py-3 rounded-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105">
+                        ✨ Get Today's Financial Market Insights
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16">Work Experience</h2>
+                <div class="relative border-l-2 border-blue-200">
+                    <!-- Bytebridge Technologies -->
+                    <div class="mb-12 ml-6 pl-6 relative">
+                        <span class="absolute -left-3.5 flex items-center justify-center w-6 h-6 bg-blue-600 rounded-full ring-8 ring-white"></span>
+                        <h3 class="text-xl font-semibold text-gray-900">Business Analyst Intern</h3>
+                        <p class="text-blue-600 font-medium">Bytebridge Technologies INC. | April 2025 – Present</p>
+                        <ul class="mt-4 list-disc list-inside text-gray-600 space-y-2">
+                            <li>Develop financial models for forecasting, budgeting, and long-term planning.</li>
+                            <li>Analyze key metrics (revenue, profit margins, ROI) to assess business performance.</li>
+                            <li>Create automated financial reports and dashboards using Excel and Power BI.</li>
+                            <li>Ensure data accuracy by collecting, cleaning, and validating data from ERP and CRM systems.</li>
+                        </ul>
+                    </div>
+                    <!-- Genpact -->
+                    <div class="mb-12 ml-6 pl-6 relative">
+                        <span class="absolute -left-3.5 flex items-center justify-center w-6 h-6 bg-blue-600 rounded-full ring-8 ring-white"></span>
+                        <h3 class="text-xl font-semibold text-gray-900">Senior Associate, Financial Analysis & Compliance</h3>
+                        <p class="text-blue-600 font-medium">Genpact India Pvt Ltd | May 2021 – July 2022</p>
+                        <ul class="mt-4 list-disc list-inside text-gray-600 space-y-2">
+                            <li>Architected dynamic Excel dashboards for financial reconciliation, reducing reporting errors by 15%.</li>
+                            <li>Conducted transaction monitoring, screening, and Enhanced Due Diligence for high-risk clients.</li>
+                        </ul>
+                    </div>
+                    <!-- Corefront Technologies -->
+                    <div class="ml-6 pl-6 relative">
+                         <span class="absolute -left-3.5 flex items-center justify-center w-6 h-6 bg-blue-600 rounded-full ring-8 ring-white"></span>
+                        <h3 class="text-xl font-semibold text-gray-900">Financial Analyst</h3>
+                        <p class="text-blue-600 font-medium">Corefront Technologies Pvt Ltd | June 2019 – May 2021</p>
+                        <ul class="mt-4 list-disc list-inside text-gray-600 space-y-2">
+                            <li>Performed valuation using Precedent Transaction Analysis to support M&A initiatives.</li>
+                            <li>Developed automated Power BI reports, significantly cutting report generation time.</li>
+                            <li>Optimized ETL processes for enterprise reporting using Alteryx and SQL.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12">Significant Projects</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Project 1 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:-translate-y-2 transition duration-300">
+                        <img src="https://placehold.co/600x400/E2E8F0/4A5568?text=Productivity+Model" alt="Project 1" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Capstone: Garment Employee Productivity Prediction</h3>
+                            <p class="text-gray-600 mb-4">Built a regression model to forecast manufacturing productivity, identifying key drivers like incentives and overtime. Translated model outputs into business insights by linking operational drivers to their impact on COGS and gross margin.</p>
+                            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">Python</span>
+                            <span class="inline-block bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">Regression</span>
+                            <span class="inline-block bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">Data Analysis</span>
+                        </div>
+                    </div>
+                    <!-- Project 2 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:-translate-y-2 transition duration-300">
+                        <img src="https://placehold.co/600x400/E2E8F0/4A5568?text=Fraud+Analytics" alt="Project 2" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Financial Fraud Analytics (Santander Bank Context)</h3>
+                            <p class="text-gray-600 mb-4">Analyzed documentation for high-risk accounts and developed data-driven solutions to improve KYC/AML process efficiency, reducing potential fraud by 15%. This involved rigorous data validation and process mapping.</p>
+                            <span class="inline-block bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">AML/KYC</span>
+                             <span class="inline-block bg-purple-100 text-purple-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">Risk Assessment</span>
+                        </div>
+                    </div>
+                    <!-- Project 3 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:-translate-y-2 transition duration-300">
+                        <img src="https://placehold.co/600x400/E2E8F0/4A5568?text=Automated+Dashboards" alt="Project 3" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Automated Financial Reporting Dashboards</h3>
+                            <p class="text-gray-600 mb-4">Architected and deployed dynamic dashboards in Power BI and Excel to automate financial reconciliation and performance tracking. This initiative reduced reporting errors by 15% and cut generation time significantly.</p>
+                            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">Power BI</span>
+                            <span class="inline-block bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">Excel</span>
+                             <span class="inline-block bg-indigo-100 text-indigo-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">Automation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12">Technical Skills</h2>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-6 text-center">Financial & Analytical</h3>
+                         <div class="space-y-4">
+                            <div class="skill-bar">
+                                <div class="skill-bar-fill" style="width: 95%;">Financial Modeling & Forecasting</div>
+                            </div>
+                             <div class="skill-bar">
+                                <div class="skill-bar-fill" style="width: 90%;">Budgeting & Variance Analysis</div>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-bar-fill" style="width: 85%;">Strategic Investment Analysis (M&A)</div>
+                            </div>
+                             <div class="skill-bar">
+                                <div class="skill-bar-fill" style="width: 80%;">Risk Assessment & AML/KYC</div>
+                            </div>
+                        </div>
+                    </div>
+                     <div>
+                        <h3 class="text-2xl font-semibold mb-6 text-center">Software & Tools</h3>
+                        <div class="space-y-4">
+                            <div class="skill-bar">
+                                <div class="skill-bar-fill bg-green-600" style="width: 95%;">Advanced Excel</div>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-bar-fill bg-green-600" style="width: 90%;">Power BI & Tableau</div>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-bar-fill bg-green-600" style="width: 85%;">SQL Server & Alteryx</div>
+                            </div>
+                             <div class="skill-bar">
+                                <div class="skill-bar-fill bg-green-600" style="width: 75%;">Python (Pandas) & R</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <!-- Gemini Feature: Job Description Analyzer -->
+                <div class="mb-16 text-center bg-white p-8 rounded-lg shadow-md">
+                    <h2 class="text-3xl font-bold mb-4">See How My Skills Align With Your Role</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto mb-6">Paste a job description below, and Gemini will provide a real-time analysis of how my skills and experience match your requirements.</p>
+                    <textarea id="job-description-input" class="w-full max-w-2xl p-2 border border-gray-300 rounded-md h-40" placeholder="Paste the full job description here..."></textarea>
+                    <button id="analyze-job-description" class="mt-4 bg-blue-600 text-white font-semibold px-8 py-3 rounded-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105">
+                       ✨ Analyze Alignment
+                    </button>
+                </div>
+
+                <div class="text-center">
+                    <h2 class="text-4xl font-bold mb-4">Get In Touch</h2>
+                    <p class="text-gray-600 text-lg mb-8">I'm currently seeking new opportunities and would love to connect. <br>Feel free to reach out via email or connect with me on LinkedIn.</p>
+                    <a href="mailto:patloorisaurabh@gmail.com" class="inline-block bg-blue-600 text-white font-semibold px-8 py-3 rounded-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105">patloorisaurabh@gmail.com</a>
+                    <div class="mt-8 flex justify-center space-x-6">
+                        <a href="https://www.linkedin.com/in/saurabh-patloori/" target="_blank" class="text-gray-500 hover:text-blue-700">
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white py-6">
+        <div class="container mx-auto px-6 text-center text-gray-500">
+            &copy; <span id="currentYear"></span> Saurabh Patloori. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- Gemini Modal -->
+    <div id="gemini-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div id="modal-header" class="flex justify-between items-center mb-4">
+                <h3 id="modal-title" class="text-2xl font-semibold"></h3>
+                <button id="modal-close-btn" class="text-gray-500 hover:text-gray-800">&times;</button>
+            </div>
+            <div id="modal-body">
+                <div id="modal-loading" class="flex flex-col items-center justify-center">
+                    <div class="spinner"></div>
+                    <p class="mt-4 text-gray-600">Generating insights with Gemini...</p>
+                </div>
+                <div id="modal-results" class="hidden text-gray-700 leading-relaxed"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // --- Basic UI Functionality ---
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        const skillBars = document.querySelectorAll('.skill-bar-fill');
+        const skillsSection = document.getElementById('skills');
+
+        const animateSkills = () => {
+            let sectionPos = skillsSection.getBoundingClientRect().top;
+            let screenPos = window.innerHeight / 1.5;
+
+            if (sectionPos < screenPos) {
+                skillBars.forEach(bar => {
+                    const targetWidth = bar.style.width;
+                    bar.style.width = '0%';
+                    setTimeout(() => {
+                        bar.style.width = targetWidth;
+                    }, 200);
+                });
+                window.removeEventListener('scroll', animateSkills);
+            }
+        };
+        window.addEventListener('scroll', animateSkills);
+
+        // --- Gemini API Integration ---
+        const apiKey = ""; // Leave empty, handled by the environment
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+        // Modal elements
+        const modal = document.getElementById('gemini-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+        const modalLoading = document.getElementById('modal-loading');
+        const modalResults = document.getElementById('modal-results');
+
+        // --- Modal Controls ---
+        const showModal = (title) => {
+            modalTitle.textContent = title;
+            modal.classList.add('visible');
+            modalLoading.classList.remove('hidden');
+            modalResults.classList.add('hidden');
+            modalResults.innerHTML = ''; // Clear previous results
+        };
+
+        const hideModal = () => {
+            modal.classList.remove('visible');
+        };
+
+        modalCloseBtn.addEventListener('click', hideModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                hideModal();
+            }
+        });
+
+
+        // --- API Call with Exponential Backoff ---
+        async function fetchWithExponentialBackoff(payload, isGrounded = false) {
+            let delay = 1000; // start with 1 second
+            for (let i = 0; i < 5; i++) { // a maximum of 5 retries
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload),
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const result = await response.json();
+                    const candidate = result.candidates?.[0];
+
+                    if (candidate && candidate.content?.parts?.[0]?.text) {
+                        const text = candidate.content.parts[0].text;
+                        let sources = [];
+                        if (isGrounded) {
+                            const groundingMetadata = candidate.groundingMetadata;
+                            if (groundingMetadata && groundingMetadata.groundingAttributions) {
+                                sources = groundingMetadata.groundingAttributions
+                                    .map(attr => ({ uri: attr.web?.uri, title: attr.web?.title }))
+                                    .filter(source => source.uri && source.title);
+                            }
+                        }
+                        return { text, sources };
+                    } else {
+                         throw new Error('Unexpected API response structure.');
+                    }
+                } catch (error) {
+                    console.warn(`Attempt ${i + 1} failed. Retrying in ${delay / 1000}s...`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2; // double the delay for the next retry
+                }
+            }
+             return { text: 'Sorry, the request failed after multiple retries. Please try again later.', sources: [] };
+        }
+
+        // --- Feature 1: Market News Summarizer ---
+        const marketNewsBtn = document.getElementById('get-market-news');
+        marketNewsBtn.addEventListener('click', async () => {
+            showModal("Today's Financial Market Insights");
+            
+            const userQuery = "Act as a concise financial news analyst. Summarize the top 2-3 most important financial market news stories from today relevant to a commercial finance or FP&A analyst in the United States. Focus on trends in retail, CPG, and inventory management. For each story, provide a single-paragraph summary and cite the source.";
+            
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                tools: [{ "google_search": {} }],
+            };
+
+            const { text, sources } = await fetchWithExponentialBackoff(payload, true);
+            
+            let htmlResult = text.replace(/\n/g, '<br><br>');
+            if (sources.length > 0) {
+                htmlResult += '<h4 class="font-semibold mt-6 mb-2">Sources:</h4><ul class="list-disc list-inside space-y-1">';
+                sources.forEach(source => {
+                    htmlResult += `<li><a href="${source.uri}" target="_blank" class="text-blue-600 hover:underline">${source.title}</a></li>`;
+                });
+                htmlResult += '</ul>';
+            }
+
+            modalResults.innerHTML = htmlResult;
+            modalLoading.classList.add('hidden');
+            modalResults.classList.remove('hidden');
+        });
+
+
+        // --- Feature 2: Job Description Analyzer ---
+        const analyzeJobBtn = document.getElementById('analyze-job-description');
+        const jobDescriptionInput = document.getElementById('job-description-input');
+        
+        analyzeJobBtn.addEventListener('click', async () => {
+            const jobDescription = jobDescriptionInput.value;
+            if (!jobDescription.trim()) {
+                alert("Please paste a job description first.");
+                return;
+            }
+
+            showModal("Job Alignment Analysis");
+
+            const profileSummary = `
+                Saurabh Patloori - Financial Analyst
+                - Education: Master of Science in Business Analytics, Bachelor of Commerce in Accounting.
+                - Core Competencies: Financial Modeling & Forecasting, Budgeting & Variance Analysis, P&L Analysis, Strategic Investment Analysis (M&A), Process Automation.
+                - Technical Skills: Advanced Excel, Power BI, Tableau, SQL, Alteryx, Python (Pandas), R, Capital IQ.
+                - Experience Highlights:
+                  - Bytebridge: Develops financial models for forecasting/budgeting, analyzes revenue/profit margins/ROI, creates automated dashboards.
+                  - Genpact: Architected Excel dashboards reducing errors by 15%, conducted transaction monitoring and Enhanced Due Diligence for high-risk clients.
+                  - Corefront: Performed valuation (Precedent Transaction Analysis) for M&A, automated Power BI reports, optimized ETL processes with Alteryx/SQL.
+            `;
+
+            const systemPrompt = "You are an expert career coach analyzing job-fit. The user will provide Saurabh Patloori's professional profile and a job description. Your task is to provide a concise, bulleted list highlighting the key alignments between his skills/experience and the job requirements. Focus on quantifiable achievements and technical skills. Start with a brief introductory sentence. Format your response in HTML using <ul> and <li> tags for the bullet points.";
+            const userQuery = `Saurabh's Profile:\n${profileSummary}\n\nJob Description:\n${jobDescription}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                 systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+            
+            const { text } = await fetchWithExponentialBackoff(payload);
+
+            modalResults.innerHTML = text;
+            modalLoading.classList.add('hidden');
+            modalResults.classList.remove('hidden');
+        });
+
+    </script>
+</body>
+</html>
